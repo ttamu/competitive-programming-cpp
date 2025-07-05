@@ -7,3 +7,6 @@
 # Build artifacts
 cmake-build-debug/
 main
+
+# Gemini related files
+GEMINI.md
