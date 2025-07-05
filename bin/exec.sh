@@ -11,6 +11,11 @@ fi
 
 g++ -std=c++23 -I. "$SRC" -o main
 
-./main < data/in.txt > data/out.txt && cat data/out.txt
+if [ -n "$2" ]; then
+    ./main < "$2" > data/out.txt
+else
+    ./main > data/out.txt
+fi
+cat data/out.txt
 #oj t -d tests -c "./main"
 
