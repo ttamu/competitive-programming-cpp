@@ -13,15 +13,14 @@ int main() {
     }
 
     ll ans = 0;
-    set<vector<vector<bool>>> st;
-    vector<vector<bool>> grid(H, vector<bool>(W, false));
-    auto dfs = [&](auto dfs, vector<vector<bool>> grid) -> void {
-        st.insert(grid);
+    vector<bool> vis(1 << (H * W), false);
+    auto dfs = [&](auto dfs, int grid) -> void {
+        vis[grid] = true;
 
         ll res = 0;
         for (int i = 0; i < H; i++) {
             for (int j = 0; j < W; j++) {
-                if (!grid[i][j]) {
+                if (!(grid & 1 << (i * W + j))) {
                     res ^= A[i][j];
                 }
             }
@@ -30,29 +29,25 @@ int main() {
 
         for (int i = 0; i < H; i++) {
             for (int j = 0; j < W; j++) {
-                if (!grid[i][j]) {
-                    if (!st.contains(grid)) dfs(dfs, grid);
+                if (i + 1 < H && !(grid & 1 << (i * W + j)) &&
+                    !(grid & 1 << ((i + 1) * W + j))) {
+                    int next_grid = grid;
+                    next_grid |= 1 << (i * W + j);
+                    next_grid |= 1 << ((i + 1) * W + j);
+                    if (!vis[next_grid]) dfs(dfs, next_grid);
                 }
 
-                if (i + 1 < H && !grid[i][j] && !grid[i + 1][j]) {
-                    grid[i][j] = true;
-                    grid[i + 1][j] = true;
-                    if (!st.contains(grid)) dfs(dfs, grid);
-                    grid[i][j] = false;
-                    grid[i + 1][j] = false;
-                }
-
-                if (j + 1 < W && !grid[i][j] && !grid[i][j + 1]) {
-                    grid[i][j] = true;
-                    grid[i][j + 1] = true;
-                    if (!st.contains(grid)) dfs(dfs, grid);
-                    grid[i][j] = false;
-                    grid[i][j + 1] = false;
+                if (j + 1 < W && !(grid & 1 << (i * W + j)) &&
+                    !(grid & 1 << (i * W + j + 1))) {
+                    int next_grid = grid;
+                    next_grid |= 1 << (i * W + j);
+                    next_grid |= 1 << (i * W + j + 1);
+                    if (!vis[next_grid]) dfs(dfs, next_grid);
                 }
             }
         }
     };
-    dfs(dfs, grid);
+    dfs(dfs, 0);
 
     cout << ans << endl;
 }
