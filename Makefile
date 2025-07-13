@@ -1,12 +1,6 @@
 .PHONY: run
 run:
-	@echo "Running $(FILE)..."
-	./bin/run.sh "$(FILE)" $(INPUT_FILE)
-
-.PHONY: run-in-txt
-run-in-txt:
-	@echo "Running $(FILE) with data/in.txt..."
-	./bin/run.sh "$(FILE)" data/in.txt
+	@./bin/run.sh "$(f)" "$(in)"
 
 .PHONY: new
 new:
@@ -17,7 +11,3 @@ new:
 	fi
 	./bin/setup.sh "$(f)"
 
-.PHONY: clean
-clean:
-	rm -f main
-	@echo "Cleaned up build artifacts."

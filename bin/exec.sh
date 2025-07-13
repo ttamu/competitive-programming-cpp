@@ -1,21 +1,31 @@
 #!/bin/bash
 
-SRC_INPUT=${1:-main.cpp}
+# $1: Source file to compile and run (e.g., src/atcoder/abc111/d.cpp or src/main.cpp)
+# $2: Optional input file path (e.g., data/in.txt)
 
-# Prepend "src/" if it's not already there
-if [[ $SRC_INPUT == src/* ]]; then
-    SRC="$SRC_INPUT"
-else
-    SRC="src/$SRC_INPUT"
+SRC_FILE="$1"
+INPUT_FILE="$2"
+
+# Compile the C++ code
+g++ -std=c++23 -I. "$SRC_FILE" -o main
+
+# Check if compilation was successful
+if [ $? -ne 0 ]; then
+    echo "Compilation failed." >&2
+    exit 1
 fi
 
-g++ -std=c++23 -I. "$SRC" -o main
-
-if [ -n "$2" ]; then
-    ./main < "$2" > data/out.txt
+# Run the compiled program
+if [ -n "$INPUT_FILE" ]; then
+    # Use the specified input file
+    ./main < "$INPUT_FILE" > data/out.txt
 else
+    # Use standard input
     ./main > data/out.txt
 fi
-cat data/out.txt
-#oj t -d tests -c "./main"
 
+# Display the output
+cat data/out.txt
+
+# Optional: Run tests (commented out for now)
+#oj t -d tests -c "./main"
