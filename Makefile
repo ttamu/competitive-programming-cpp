@@ -8,15 +8,14 @@ run-in-txt:
 	@echo "Running $(FILE) with data/in.txt..."
 	./bin/run.sh "$(FILE)" data/in.txt
 
-.PHONY: setup
-setup:
-	@if [ -z "$(DIR)" ]; then \
-		echo "Usage: make setup DIR=<contest_directory_name>" >&2; \
-		echo "Example: make setup DIR=atcoder/abc412" >&2; \
+.PHONY: new
+new:
+	@if [ -z "$(f)" ]; then \
+		echo "Usage: make new f=<contest>-<problem> or f=<contest>" >&2; \
+		echo "Example: make new f=abc400-d" >&2; \
 		exit 1; \
 	fi
-	@echo "Setting up $(DIR)..."
-	./bin/setup.sh "$(DIR)"
+	./bin/setup.sh "$(f)"
 
 .PHONY: clean
 clean:
