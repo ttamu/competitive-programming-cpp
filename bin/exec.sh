@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # $1: Source file to compile and run (e.g., src/atcoder/abc111/d.cpp or src/main.cpp)
-# $2: Optional input file path (e.g., data/in.txt)
+# $2: Optional input file path (e.g., data/in)
 
 SRC_FILE="$1"
 INPUT_FILE="$2"
@@ -18,14 +18,14 @@ fi
 # Run the compiled program
 if [ -n "$INPUT_FILE" ]; then
     # Use the specified input file
-    ./main < "$INPUT_FILE" > data/out.txt
+    ./main < "$INPUT_FILE" > data/out
 else
     # Use standard input
-    ./main > data/out.txt
+    ./main > data/out
 fi
 
 # Display the output
-cat data/out.txt
+cat data/out
 
 # Optional: Run tests (commented out for now)
 #oj t -d tests -c "./main"
