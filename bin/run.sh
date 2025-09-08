@@ -3,7 +3,7 @@
 # --- Configuration ---
 TARGET_EXEC_SCRIPT="bin/exec.sh"
 DEFAULT_FILE="src/main.cpp"
-INPUT_FILE_PATH="data/in.txt"
+INPUT_FILE_PATH="data/in"
 
 # --- Usage Function ---
 show_usage() {
@@ -39,7 +39,7 @@ if [ ! -f "$FILE_TO_RUN" ]; then
     exit 1
 fi
 
-# Check if data/in.txt exists when 'in' flag is set
+# Check if data/in exists when 'in' flag is set
 if [ -n "$INPUT_FLAG_ARG" ] && [ ! -f "$INPUT_FILE_PATH" ]; then
     echo "Error: 'in=1' specified, but input file '$INPUT_FILE_PATH' not found." >&2
     show_usage
