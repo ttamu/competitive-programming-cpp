@@ -22,6 +22,7 @@ foreach (source_file ${ALL_SOURCES})
     get_filename_component(problem_name ${source_file} NAME_WE)
     get_filename_component(problem_dir ${source_file} DIRECTORY)
     get_filename_component(contest_name ${problem_dir} NAME)
+    string(REPLACE " " "_" contest_name "${contest_name}")
     set(target_name "${contest_name}_${problem_name}")
 
     add_executable(${target_name} "${source_file}")
