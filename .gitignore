@@ -8,6 +8,4 @@
 cmake-build-debug/
 main
 
-# Gemini related files
-GEMINI.md
 src/main.cpp
